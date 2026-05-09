@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anneliese & Lauren — Financial Plan 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#1a1a1a;--ink2:#444;--ink3:#888;
+  --bg:#f7f6f2;--surface:#ffffff;--border:#e5e3dc;
+  --green:#1a7a4a;--green-bg:#edf7f2;--green-border:#b7dfc9;
+  --amber:#8a5a00;--amber-bg:#fef9ec;--amber-border:#f0d090;
+  --red:#a02020;--red-bg:#fdf0f0;
+  --blue:#1a4a8a;--blue-bg:#eef3fc;--blue-border:#b0c8f0;
+  --accent:#2d6a4f;--accent2:#1a4a35;
+}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--ink);font-size:14px;line-height:1.6;min-height:100vh}
+
+/* Layout */
+.shell{display:flex;min-height:100vh}
+.sidebar{width:220px;flex-shrink:0;background:var(--accent2);padding:2rem 1.25rem;position:fixed;top:0;left:0;height:100vh;overflow-y:auto;z-index:10}
+.main{margin-left:220px;flex:1;padding:2.5rem 2rem;max-width:800px}
+
+/* Sidebar */
+.sidebar-logo{font-family:'DM Serif Display',serif;font-size:20px;color:#fff;line-height:1.2;margin-bottom:.35rem}
+.sidebar-logo em{font-style:italic;opacity:.7}
+.sidebar-date{font-size:10px;color:rgba(255,255,255,.45);letter-spacing:.05em;margin-bottom:2rem}
+.nav-label{font-size:9px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:.5rem;margin-top:1.5rem}
+.nav-item{display:flex;align-items:center;gap:.6rem;padding:.5rem .75rem;border-radius:8px;color:rgba(255,255,255,.65);font-size:13px;cursor:pointer;transition:.15s;margin-bottom:2px;text-decoration:none;border:none;background:transparent;width:100%;text-align:left;font-family:'DM Sans',sans-serif}
+.nav-item:hover{background:rgba(255,255,255,.1);color:#fff}
+.nav-item.active{background:rgba(255,255,255,.15);color:#fff;font-weight:500}
+.nav-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.3);flex-shrink:0}
+.nav-item.active .nav-dot{background:#74c69d}
+.sidebar-footer{margin-top:auto;padding-top:2rem;font-size:10px;color:rgba(255,255,255,.25);line-height:1.6}
+
+/* Sections */
+.section{display:none;animation:fadeIn .2s ease}
+.section.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+
+/* Page header */
+.page-header{margin-bottom:2rem}
+.page-title{font-family:'DM Serif Display',serif;font-size:28px;color:var(--ink);line-height:1.1;margin-bottom:.35rem}
+.page-title em{font-style:italic;color:var(--accent)}
+.page-sub{font-size:13px;color:var(--ink3)}
+
+/* Cards */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1.35rem 1.5rem;margin-bottom:1rem}
+.card-title{font-size:13px;font-weight:600;color:var(--ink);margin-bottom:1rem}
+.card-label{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);margin-bottom:.75rem}
+
+/* Metric grid */
+.metric-grid{display:grid;gap:.75rem;margin-bottom:1rem}
+.mg-3{grid-template-columns:repeat(3,1fr)}
+.mg-2{grid-template-columns:repeat(2,1fr)}
+.metric{background:var(--bg);border-radius:10px;padding:.85rem 1rem}
+.metric-label{font-size:11px;color:var(--ink3);margin-bottom:3px}
+.metric-value{font-size:17px;font-weight:600;color:var(--ink)}
+.metric-value.green{color:var(--green)}
+.metric-value.amber{color:var(--amber)}
+.metric-value.red{color:var(--red)}
+.metric-sub{font-size:10px;color:var(--ink3);margin-top:2px}
+
+/* Net worth hero */
+.nw-hero{background:var(--accent2);border-radius:14px;padding:1.75rem 1.5rem;margin-bottom:1rem;color:#fff}
+.nw-hero-label{font-size:11px;color:rgba(255,255,255,.5);margin-bottom:.25rem}
+.nw-hero-value{font-family:'DM Serif Display',serif;font-size:42px;color:#fff;margin-bottom:1.25rem}
+
+/* Insight boxes */
+.insight{border-radius:10px;padding:.85rem 1rem;margin-bottom:.6rem;font-size:12px;line-height:1.65}
+.insight.green{background:var(--green-bg);border:1px solid var(--green-border);color:#1a4a2e}
+.insight.amber{background:var(--amber-bg);border:1px solid var(--amber-border);color:#5a3a00}
+.insight.blue{background:var(--blue-bg);border:1px solid var(--blue-border);color:#0a2a5a}
+.insight strong{font-weight:600}
+
+/* Action items */
+.action-item{display:flex;align-items:flex-start;gap:.85rem;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:.9rem 1rem;margin-bottom:.5rem;cursor:pointer;transition:.15s;user-select:none}
+.action-item:hover{border-color:#c5c2b8}
+.action-item.done{opacity:.5}
+.action-check{width:22px;height:22px;border-radius:50%;border:1.5px solid var(--border);flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;transition:.2s;background:var(--surface)}
+.action-item.done .action-check{background:var(--green);border-color:var(--green)}
+.action-body{flex:1}
+.action-title{font-size:13px;font-weight:500;margin-bottom:2px}
+.action-item.done .action-title{text-decoration:line-through;color:var(--ink3)}
+.action-detail{font-size:11px;color:var(--ink3);line-height:1.5}
+.badge{font-size:10px;font-weight:600;padding:2px 8px;border-radius:20px;flex-shrink:0;white-space:nowrap}
+.badge.urgent{background:#fde8e8;color:#a02020}
+.badge.week{background:#fef3dc;color:#8a5a00}
+.badge.later{background:#e8f0fe;color:#1a4a8a}
+.badge.done{background:var(--green-bg);color:var(--green)}
+.section-label{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);margin:1.25rem 0 .6rem}
+.progress-wrap{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:.85rem 1rem;margin-bottom:1rem;display:flex;align-items:center;gap:1rem}
+.progress-text{flex:1;font-size:13px;color:var(--ink3)}
+.progress-text strong{color:var(--ink)}
+.progress-track{flex:2;height:6px;background:var(--bg);border-radius:3px;overflow:hidden}
+.progress-fill{height:100%;border-radius:3px;background:var(--accent);transition:width .4s}
+.progress-pct{font-size:13px;font-weight:600;color:var(--accent);min-width:32px;text-align:right}
+
+/* Timeline */
+.timeline{position:relative;padding-left:1.75rem}
+.timeline::before{content:'';position:absolute;left:7px;top:10px;bottom:10px;width:1px;background:var(--border)}
+.tl-item{position:relative;margin-bottom:1.35rem}
+.tl-dot{position:absolute;left:-1.75rem;top:5px;width:15px;height:15px;border-radius:50%;border:2px solid var(--border);background:var(--surface);transition:.2s}
+.tl-dot.done{border-color:var(--green);background:var(--green)}
+.tl-dot.active{border-color:var(--accent);background:var(--accent)}
+.tl-when{font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ink3);margin-bottom:2px}
+.tl-what{font-size:13px;font-weight:500;color:var(--ink);margin-bottom:2px}
+.tl-detail{font-size:12px;color:var(--ink3)}
+
+/* Range inputs */
+.range-row{display:flex;align-items:center;gap:.75rem;margin-bottom:.75rem}
+.range-row label{font-size:12px;color:var(--ink3);min-width:140px}
+.range-row input[type=range]{flex:1;accent-color:var(--accent)}
+.range-row span{font-size:12px;font-weight:600;min-width:70px;text-align:right;color:var(--ink)}
+
+/* Scenario results */
+.sc-table{width:100%;border-collapse:collapse;font-size:13px}
+.sc-table tr{border-bottom:1px solid var(--border)}
+.sc-table tr:last-child{border:none;font-weight:600;font-size:14px}
+.sc-table td{padding:.45rem 0}
+.sc-table td:last-child{text-align:right;font-weight:500}
+.sc-green{color:var(--green)}
+.sc-red{color:var(--red)}
+
+/* Vaults */
+.vault-item{display:flex;align-items:center;gap:.85rem;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:.85rem 1rem;margin-bottom:.5rem}
+.vault-emoji{font-size:22px;width:36px;text-align:center;flex-shrink:0}
+.vault-body{flex:1}
+.vault-name{font-size:13px;font-weight:500}
+.vault-meta{font-size:11px;color:var(--ink3);margin-top:1px}
+.vault-right{text-align:right;flex-shrink:0}
+.vault-target{font-size:13px;font-weight:600;color:var(--ink)}
+.vault-bar-wrap{width:90px;margin-top:4px}
+.vault-bar-track{height:4px;background:var(--bg);border-radius:2px;overflow:hidden}
+.vault-bar-fill{height:100%;border-radius:2px;background:var(--accent)}
+.vault-pct{font-size:10px;color:var(--ink3);text-align:right;margin-top:2px}
+
+/* Lifestyle levers */
+.lever{display:flex;align-items:center;justify-content:space-between;gap:.75rem;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:.85rem 1rem;margin-bottom:.5rem}
+.lever-left{display:flex;align-items:center;gap:.75rem;flex:1;min-width:0}
+.lever-cat{font-size:10px;color:var(--ink3);margin-bottom:1px}
+.lever-name{font-size:13px;font-weight:500}
+.lever-amount{font-size:12px;color:var(--ink3)}
+.lever-right{display:flex;align-items:center;gap:.75rem;flex-shrink:0}
+.lever-saving{font-size:13px;font-weight:600;min-width:60px;text-align:right;color:var(--ink3);transition:.2s}
+.lever-saving.on{color:var(--green)}
+.toggle{position:relative;width:42px;height:24px;flex-shrink:0}
+.toggle input{opacity:0;width:0;height:0;position:absolute}
+.toggle-slider{position:absolute;inset:0;background:#ddd;border-radius:24px;cursor:pointer;transition:.2s}
+.toggle-slider:before{content:'';position:absolute;width:18px;height:18px;left:3px;top:3px;background:#fff;border-radius:50%;transition:.2s;box-shadow:0 1px 3px rgba(0,0,0,.15)}
+.toggle input:checked+.toggle-slider{background:var(--accent)}
+.toggle input:checked+.toggle-slider:before{transform:translateX(18px)}
+
+/* Savings summary bar */
+.savings-bar{background:var(--green-bg);border:1px solid var(--green-border);border-radius:12px;padding:1rem 1.25rem;margin-bottom:1rem;display:flex;justify-content:space-between;align-items:center}
+.savings-bar-label{font-size:12px;color:var(--green)}
+.savings-bar-value{font-family:'DM Serif Display',serif;font-size:24px;color:var(--green)}
+
+/* Retirement chart area */
+#ret-chart-wrap{position:relative;width:100%;height:220px;margin:1rem 0}
+
+/* Responsive */
+@media(max-width:640px){
+  .sidebar{width:100%;height:auto;position:relative;padding:1.25rem}
+  .main{margin-left:0;padding:1.25rem}
+  .shell{flex-direction:column}
+  .mg-3{grid-template-columns:repeat(2,1fr)}
+  .nw-hero-value{font-size:32px}
+}
+</style>
+</head>
+<body>
+<div class="shell">
+
+<nav class="sidebar">
+  <div class="sidebar-logo">Anneliese <em>&</em> Lauren</div>
+  <div class="sidebar-date">Financial Plan · May 2026</div>
+
+  <div class="nav-label">Plan</div>
+  <button class="nav-item active" onclick="show('overview')"><span class="nav-dot"></span>Overview</button>
+  <button class="nav-item" onclick="show('actions')"><span class="nav-dot"></span>Action items</button>
+  <button class="nav-item" onclick="show('timeline')"><span class="nav-dot"></span>ADU timeline</button>
+
+  <div class="nav-label">Model</div>
+  <button class="nav-item" onclick="show('scenario')"><span class="nav-dot"></span>Scenario planner</button>
+  <button class="nav-item" onclick="show('levers')"><span class="nav-dot"></span>Lifestyle levers</button>
+  <button class="nav-item" onclick="show('retirement')"><span class="nav-dot"></span>Retirement</button>
+
+  <div class="nav-label">Money</div>
+  <button class="nav-item" onclick="show('vaults')"><span class="nav-dot"></span>SoFi vaults</button>
+  <button class="nav-item" onclick="show('bkng')"><span class="nav-dot"></span>BKNG strategy</button>
+
+  <div class="sidebar-footer">
+    Not financial advice.<br>
+    Talk to a CPA before major moves.<br><br>
+    Last updated May 9, 2026
+  </div>
+</nav>
+
+<main class="main">
+
+<!-- OVERVIEW -->
+<div id="sec-overview" class="section active">
+  <div class="page-header">
+    <div class="page-title">Your financial <em>picture</em></div>
+    <div class="page-sub">Household snapshot · May 9, 2026</div>
+  </div>
+
+  <div class="nw-hero">
+    <div class="nw-hero-label">Estimated household net worth</div>
+    <div class="nw-hero-value">~$543,000</div>
+    <div class="metric-grid mg-3" style="margin-bottom:0">
+      <div class="metric" style="background:rgba(255,255,255,.08)">
+        <div class="metric-label" style="color:rgba(255,255,255,.5)">Your retirement</div>
+        <div class="metric-value" style="color:#fff">$205k</div>
+        <div class="metric-sub" style="color:rgba(255,255,255,.4)">401k + Roth IRA</div>
+      </div>
+      <div class="metric" style="background:rgba(255,255,255,.08)">
+        <div class="metric-label" style="color:rgba(255,255,255,.5)">Lauren's retirement</div>
+        <div class="metric-value" style="color:#fff">$200k</div>
+        <div class="metric-sub" style="color:rgba(255,255,255,.4)">Age 35 · 30yr runway</div>
+      </div>
+      <div class="metric" style="background:rgba(255,255,255,.08)">
+        <div class="metric-label" style="color:rgba(255,255,255,.5)">HELOC available</div>
+        <div class="metric-value" style="color:#74c69d">$75k</div>
+        <div class="metric-sub" style="color:rgba(255,255,255,.4)">Paid off · ADU ready</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="metric-grid mg-3">
+    <div class="metric">
+      <div class="metric-label">BKNG remaining</div>
+      <div class="metric-value">$57k</div>
+      <div class="metric-sub">345 vested shares</div>
+    </div>
+    <div class="metric">
+      <div class="metric-label">Joint investing</div>
+      <div class="metric-value">$22k</div>
+      <div class="metric-sub">Betterment · 90% stocks</div>
+    </div>
+    <div class="metric">
+      <div class="metric-label">SoFi (building)</div>
+      <div class="metric-value green">~$40k</div>
+      <div class="metric-sub">4.50% APY · Plus active</div>
+    </div>
+  </div>
+
+  <div class="insight green"><strong>Retirement is handled.</strong> Combined $405k at ages 39 & 35 grows to ~$2.6M by retirement at 7% — without adding another dollar. The compounding is already working.</div>
+  <div class="insight blue"><strong>The ADU is the centerpiece.</strong> Seasonal STR during ski season (Nov–Mar) and summer (May–Sep) generates strong income, while Apr & Oct stay open for family and friends. Builds equity and gives Lauren the runway to leave corporate. Target: break ground mid-2027.</div>
+  <div class="insight amber"><strong>Lauren's transition plan.</strong> She stays in corporate until the HELOC is paid off (~18–24 months post-build). This eliminates the biggest financial risk in the plan entirely.</div>
+
+  <div class="card">
+    <div class="card-label">Retirement trajectory</div>
+    <div class="metric-grid mg-2" style="margin-bottom:0">
+      <div class="metric">
+        <div class="metric-label">You at 65 (26 years)</div>
+        <div class="metric-value green">~$1.1M</div>
+        <div class="metric-sub">401k + Roth · 7% return</div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">Lauren at 65 (30 years)</div>
+        <div class="metric-value green">~$1.5M</div>
+        <div class="metric-sub">$200k compounding · 7%</div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">Combined at retirement</div>
+        <div class="metric-value green">~$2.6M</div>
+        <div class="metric-sub">Without new contributions</div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">Next BKNG vesting</div>
+        <div class="metric-value">225 RSUs</div>
+        <div class="metric-sub">Mar 4, 2027 · ~$37k</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ACTIONS -->
+<div id="sec-actions" class="section">
+  <div class="page-header">
+    <div class="page-title">Action <em>items</em></div>
+    <div class="page-sub">Click any item to mark complete</div>
+  </div>
+
+  <div class="progress-wrap">
+    <div class="progress-text"><strong id="done-label">2 of 15</strong> completed</div>
+    <div class="progress-track"><div class="progress-fill" id="prog-fill" style="width:13%"></div></div>
+    <div class="progress-pct" id="prog-pct">13%</div>
+  </div>
+
+  <div class="section-label">This week — urgent</div>
+  <div id="actions-urgent"></div>
+  <div class="section-label">This month</div>
+  <div id="actions-month"></div>
+  <div class="section-label">2026 — before ADU</div>
+  <div id="actions-2026"></div>
+  <div class="section-label">2027 and beyond</div>
+  <div id="actions-2027"></div>
+</div>
+
+<!-- TIMELINE -->
+<div id="sec-timeline" class="section">
+  <div class="page-header">
+    <div class="page-title">ADU <em>timeline</em></div>
+    <div class="page-sub">From today to Lauren's transition</div>
+  </div>
+
+  <div class="card">
+    <div class="card-label">Funding stack</div>
+    <div class="metric-grid mg-2" style="margin-bottom:0">
+      <div class="metric"><div class="metric-label">HELOC (ready)</div><div class="metric-value green">$75,000</div><div class="metric-sub">Paid off · draw as needed</div></div>
+      <div class="metric"><div class="metric-label">BKNG sale proceeds</div><div class="metric-value green">~$30,500</div><div class="metric-sub">Arriving Wednesday</div></div>
+      <div class="metric"><div class="metric-label">Mar 2027 RSU vesting</div><div class="metric-value">~$37,000</div><div class="metric-sub">225 shares · unvested</div></div>
+      <div class="metric"><div class="metric-label">Total projected</div><div class="metric-value green">~$142k+</div><div class="metric-sub">Covers most build scenarios</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label">Milestones</div>
+    <div class="timeline">
+      <div class="tl-item"><div class="tl-dot done"></div><div class="tl-when">May 9, 2026 — Today</div><div class="tl-what">Sold 205 BKNG shares</div><div class="tl-detail">~$30.5k after-tax · oldest lots · tax loss harvested</div></div>
+      <div class="tl-item"><div class="tl-dot active"></div><div class="tl-when">May–Jun 2026</div><div class="tl-what">Cash consolidation to SoFi</div><div class="tl-detail">BKNG proceeds + Ally + GreenFi → SoFi vaults · SoFi Plus active</div></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-when">Jun 10, 2026</div><div class="tl-what">BKNG blackout starts</div><div class="tl-detail">No trading until Jul 29 · next window after Q3 earnings</div></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-when">Summer 2026</div><div class="tl-what">Start ADU design & permits</div><div class="tl-detail">Hire architect · SLC permitting takes 3–6 months · start now for mid-2027 groundbreak</div></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-when">Fall 2026</div><div class="tl-what">Lock contractor & finalize budget</div><div class="tl-detail">Get 3 bids · confirm HELOC draw schedule · design for STR (separate entrance, locked storage, great wifi)</div></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-when">Mar 4, 2027</div><div class="tl-what">225 RSUs vest (~$37k)</div><div class="tl-detail">Sell most in next open window · add to ADU fund · 2028+2029 vesting still coming</div></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-when">Mid 2027</div><div class="tl-what">Break ground</div><div class="tl-detail">Draw HELOC as needed · both still at full income · $142k+ available</div></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-when">Late 2027–Early 2028</div><div class="tl-what">ADU complete · seasonal STR begins</div><div class="tl-detail">Rent Nov–Mar (ski) + May–Sep (summer) · ~$150–220/night · keep Apr & Oct for family visits · ~$1,500–2,300/mo averaged annually</div></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-when">2028–2029</div><div class="tl-what">Pay off HELOC</div><div class="tl-detail">Rental income + full household income · target 18–24 months to full payoff</div></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-when">2029+</div><div class="tl-what">Lauren leaves corporate 🌸</div><div class="tl-detail">ADU paid off · floral career begins · household financially stable</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- SCENARIO -->
+<div id="sec-scenario" class="section">
+  <div class="page-header">
+    <div class="page-title">Scenario <em>planner</em></div>
+    <div class="page-sub">Model household income after Lauren's transition</div>
+  </div>
+  <div class="card">
+    <div class="card-label">Adjust your numbers</div>
+    <div class="range-row"><label>Your salary</label><input type="range" min="100000" max="250000" step="5000" value="150000" id="sc-your" oninput="recalcSc()"><span id="sc-your-out">$150k</span></div>
+    <div class="range-row"><label>Lauren (floral/retail)</label><input type="range" min="0" max="60000" step="2000" value="22000" id="sc-lauren" oninput="recalcSc()"><span id="sc-lauren-out">$22k/yr</span></div>
+    <div class="range-row"><label>ADU rental income (avg/mo)</label><input type="range" min="0" max="3000" step="100" value="1800" id="sc-adu" oninput="recalcSc()"><span id="sc-adu-out">$1,800/mo</span></div>
+    <div class="range-row"><label>Lifestyle savings</label><input type="range" min="0" max="2500" step="50" value="0" id="sc-levers" oninput="recalcSc()"><span id="sc-levers-out">$0/mo</span></div>
+  </div>
+  <div class="card">
+    <div class="card-label">Monthly breakdown</div>
+    <table class="sc-table">
+      <tr><td>Your take-home (~72% of gross)</td><td id="sc-r1">$9,000</td></tr>
+      <tr><td>Lauren's income</td><td id="sc-r2">$1,833</td></tr>
+      <tr><td>ADU rental income</td><td id="sc-r3">$1,800</td></tr>
+      <tr><td>Total monthly income</td><td class="sc-green" id="sc-r4">$12,633</td></tr>
+      <tr><td>Current spend ($17k – savings + HELOC)</td><td class="sc-red" id="sc-r5">$18,300</td></tr>
+      <tr><td>Monthly surplus / gap</td><td id="sc-r6">−$5,667</td></tr>
+    </table>
+    <div class="insight amber" id="sc-note" style="margin-top:.85rem">Lauren staying in corporate until HELOC is paid off eliminates this gap entirely. This models the post-transition scenario.</div>
+  </div>
+</div>
+
+<!-- LEVERS -->
+<div id="sec-levers" class="section">
+  <div class="page-header">
+    <div class="page-title">Lifestyle <em>levers</em></div>
+    <div class="page-sub">Based on your real Monarch transactions · toggle to see impact</div>
+  </div>
+  <div class="savings-bar">
+    <div class="savings-bar-label">Monthly savings identified</div>
+    <div class="savings-bar-value" id="lever-total">$0 / mo</div>
+  </div>
+  <div id="lever-list"></div>
+</div>
+
+<!-- RETIREMENT -->
+<div id="sec-retirement" class="section">
+  <div class="page-header">
+    <div class="page-title">Retirement <em>projection</em></div>
+    <div class="page-sub">Both of you · to age 65</div>
+  </div>
+  <div class="card">
+    <div class="card-label">Assumptions</div>
+    <div class="range-row"><label>Annual return</label><input type="range" min="4" max="10" step="0.5" value="7" id="ret-rate" oninput="recalcRet()"><span id="ret-rate-out">7%</span></div>
+    <div class="range-row"><label>Lauren annual contrib.</label><input type="range" min="0" max="10000" step="500" value="2000" id="ret-contrib" oninput="recalcRet()"><span id="ret-contrib-out">$2,000/yr</span></div>
+  </div>
+  <div class="card">
+    <canvas id="ret-chart" style="width:100%;height:220px" role="img" aria-label="Retirement savings projection chart for Anneliese and Lauren to age 65"></canvas>
+  </div>
+  <div class="metric-grid mg-2">
+    <div class="metric"><div class="metric-label">Anneliese at 65</div><div class="metric-value green" id="ret-you">~$1.1M</div><div class="metric-sub">$205k · 26 years</div></div>
+    <div class="metric"><div class="metric-label">Lauren at 65</div><div class="metric-value green" id="ret-lauren">~$1.5M</div><div class="metric-sub">$200k · 30 years</div></div>
+  </div>
+  <div class="insight green">Even with zero new contributions, Lauren's $200k grows to over $1.5M by 65. The compounding at age 35 is extraordinarily powerful.</div>
+  <div class="insight blue">If Lauren does any freelance floral or consulting work, she can open a Solo 401k and contribute up to $23,500/year — keeping retirement momentum even without corporate employment.</div>
+</div>
+
+<!-- VAULTS -->
+<div id="sec-vaults" class="section">
+  <div class="page-header">
+    <div class="page-title">SoFi <em>vaults</em></div>
+    <div class="page-sub">Your cash structure · 4.50% APY on SoFi Plus</div>
+  </div>
+  <div class="insight blue" style="margin-bottom:1rem"><strong>Total target: $84,000</strong> · Your ~$40k landing this week covers the ADU Fund and starts the Emergency Fund. Build the rest from monthly savings over 12–18 months.</div>
+  <div id="vault-list"></div>
+  <div class="card" style="margin-top:1rem">
+    <div class="card-label">Account consolidation complete</div>
+    <div class="metric-grid mg-2" style="margin-bottom:0">
+      <div class="metric"><div class="metric-label">GreenFi Savings</div><div class="metric-value green">✓ Moved</div><div class="metric-sub">$4,406 → SoFi</div></div>
+      <div class="metric"><div class="metric-label">Ally Savings</div><div class="metric-value green">✓ Sent</div><div class="metric-sub">$2,657 → SoFi · closing</div></div>
+      <div class="metric"><div class="metric-label">BKNG proceeds</div><div class="metric-value amber">⏳ Wednesday</div><div class="metric-sub">~$30,500 arriving</div></div>
+      <div class="metric"><div class="metric-label">SoFi Plus</div><div class="metric-value green">✓ Active</div><div class="metric-sub">4.50% APY · Smart Card</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- BKNG -->
+<div id="sec-bkng" class="section">
+  <div class="page-header">
+    <div class="page-title">BKNG <em>strategy</em></div>
+    <div class="page-sub">Booking Holdings stock plan · Morgan Stanley at Work</div>
+  </div>
+
+  <div class="insight green" style="margin-bottom:1rem"><strong>Trading window open now</strong> — closes June 10, 2026. You already sold 205 shares today.</div>
+
+  <div class="card">
+    <div class="card-label">Current position</div>
+    <div class="metric-grid mg-3" style="margin-bottom:0">
+      <div class="metric"><div class="metric-label">Sold today</div><div class="metric-value green">205 shares</div><div class="metric-sub">~$30.5k after tax</div></div>
+      <div class="metric"><div class="metric-label">Remaining vested</div><div class="metric-value">345 shares</div><div class="metric-sub">~$57k at $166/sh</div></div>
+      <div class="metric"><div class="metric-label">Current price</div><div class="metric-value">$165.99</div><div class="metric-sub">Down from ~$300 peak</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label">Future vesting schedule</div>
+    <div class="timeline" style="margin-top:.5rem">
+      <div class="tl-item"><div class="tl-dot done"></div><div class="tl-when">May 9, 2026</div><div class="tl-what">Sold 205 shares — done ✓</div><div class="tl-detail">2022 lot (150) + 2025 lot (25, tax loss) + 2023 partial (30)</div></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-when">Jun 10 – Jul 29, 2026</div><div class="tl-what">Blackout period</div><div class="tl-detail">No trading allowed · window reopens after Q3 earnings</div></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-when">Mar 4, 2027</div><div class="tl-what">225 RSUs vest</div><div class="tl-detail">100 + 50 + 75 shares · ~$37k at today's price · sell most in next window</div></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-when">2028</div><div class="tl-what">~125 RSUs vest</div><div class="tl-detail">~$20,750 at today's price · continue diversifying</div></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-when">2029</div><div class="tl-what">~75 RSUs vest</div><div class="tl-detail">~$12,450 at today's price · final known tranche</div></div>
+    </div>
+  </div>
+
+  <div class="insight green"><strong>Seasonal STR strategy:</strong> Rent Nov–Mar (ski season) and May–Sep (summer outdoor season) at $150–220/night. Keep April and October open for family and friends. At 65% occupancy across 8 open months, expect $18,000–28,000/year gross — averaging $1,500–2,300/month across the full year. Comfortably covers HELOC debt service.</div>
+  <div class="insight blue"><strong>ADU design tips for dual use:</strong> Separate entrance for privacy · locked owner storage closet · well-furnished (serves STR guests and family equally) · fast wifi and workspace for remote-working visitors.</div>
+  <div class="insight blue"><strong>10b5-1 plan:</strong> Ask your Morgan Stanley advisor about setting up a pre-scheduled selling plan — lets you sell automatically even during blackout periods. Worth exploring for the 2027+ vestings.</div>
+</div>
+
+</main>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+// Navigation
+function show(name){
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(b=>b.classList.remove('active'));
+  document.getElementById('sec-'+name).classList.add('active');
+  const navMap={overview:0,actions:1,timeline:2,scenario:3,levers:4,retirement:5,vaults:6,bkng:7};
+  document.querySelectorAll('.nav-item')[navMap[name]].classList.add('active');
+  if(name==='retirement') setTimeout(drawRetChart,100);
+}
+
+// Actions
+const actions=[
+  {g:'urgent',title:'Confirm BKNG sale executed',detail:'Check Morgan Stanley portal Monday AM — 205 shares, order at market open',done:true},
+  {g:'urgent',title:'Switch direct deposit to SoFi',detail:'Log into Workday/HR portal at OpenTable → update direct deposit to SoFi checking',done:false},
+  {g:'urgent',title:'Set up 5 SoFi vaults',detail:'ADU Fund · Emergency Fund · Parents · Pets · Cash Buffer — do before money arrives',done:false},
+  {g:'urgent',title:'Activate SoFi Smart Card',detail:'5% cash back on groceries · worth ~$430/yr on your spend · find in SoFi app',done:false},
+  {g:'month',title:'Transfer BKNG proceeds to ADU vault',detail:'~$30,500 arrives Wednesday · move straight to SoFi ADU Fund vault',done:false},
+  {g:'month',title:'Confirm Ally closure',detail:'Call 1-877-247-2559 if no online close option · confirm $2,657 transfer cleared first',done:false},
+  {g:'month',title:'Add Ally to Monarch then remove when closed',detail:'Accounts → Add Account → Ally Bank · remove after closure for clean net worth',done:false},
+  {g:'month',title:'Check BKNG lot details & cost basis',detail:'E*Trade → Stock Plan → Holdings → Lot Details · save for your CPA',done:false},
+  {g:'month',title:'Understand Betterment retirement account ($42,895)',detail:'Tap Retirement in Betterment — is it Roth IRA or Traditional? Do not close without rollover plan',done:false},
+  {g:'2026',title:'Start ADU architect search',detail:'SLC permitting takes 3–6 months · hire architect summer 2026 for mid-2027 groundbreak',done:false},
+  {g:'2026',title:'Consult CPA about BKNG tax impact',detail:'Morgan Stanley 1099-B arrives early 2027 · plan estimated Q4 2026 tax payment',done:false},
+  {g:'2026',title:'Explore pet insurance',detail:'$30–60/mo per pet caps vet emergency exposure · compare Healthy Paws, Figo, Trupanion',done:false},
+  {g:'2026',title:'Have parents financial planning conversation',detail:'Long-term care insurance? Medicare situation? Home equity? Siblings sharing costs?',done:false},
+  {g:'2026',title:'Research SLC seasonal STR market & regulations',detail:'Confirm your zone is STR-eligible · check SLC short-term rental permit requirements · look at Airbnb comps for ski + summer seasons',done:false},
+  {g:'2027',title:'Sell most of Mar 2027 RSU vesting (225 shares)',detail:'Next open window after Mar 4, 2027 · add proceeds to ADU fund or pay down HELOC',done:false},
+];
+
+function renderActions(){
+  ['urgent','month','2026','2027'].forEach(g=>{
+    const el=document.getElementById('actions-'+g);
+    if(!el) return;
+    el.innerHTML='';
+    actions.filter(a=>a.g===g).forEach((a,i)=>{
+      const idx=actions.indexOf(a);
+      const div=document.createElement('div');
+      div.className='action-item'+(a.done?' done':'');
+      div.innerHTML=`<div class="action-check">${a.done?`<svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M2 5.5l2.5 2.5L9 3" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`:''}</div><div class="action-body"><div class="action-title">${a.title}</div><div class="action-detail">${a.detail}</div></div><div class="badge ${a.done?'done':g==='urgent'?'urgent':g==='month'?'week':'later'}">${a.done?'Done':g==='urgent'?'Urgent':g==='month'?'This month':g==='2026'?'2026':'2027'}</div>`;
+      div.onclick=()=>{actions[idx].done=!actions[idx].done;renderActions();};
+      el.appendChild(div);
+    });
+  });
+  const done=actions.filter(a=>a.done).length;
+  const pct=Math.round(done/actions.length*100);
+  document.getElementById('done-label').textContent=done+' of '+actions.length;
+  document.getElementById('prog-fill').style.width=pct+'%';
+  document.getElementById('prog-pct').textContent=pct+'%';
+}
+
+// Scenario
+function fmt(n){return(n<0?'−$':'$')+Math.abs(Math.round(n)).toLocaleString();}
+function recalcSc(){
+  const ys=parseInt(document.getElementById('sc-your').value);
+  const ls=parseInt(document.getElementById('sc-lauren').value);
+  const adu=parseInt(document.getElementById('sc-adu').value);
+  const lev=parseInt(document.getElementById('sc-levers').value);
+  document.getElementById('sc-your-out').textContent='$'+Math.round(ys/1000)+'k';
+  document.getElementById('sc-lauren-out').textContent='$'+Math.round(ls/1000)+'k/yr';
+  document.getElementById('sc-adu-out').textContent='$'+adu.toLocaleString()+'/mo';
+  document.getElementById('sc-levers-out').textContent='$'+lev.toLocaleString()+'/mo';
+  const take=Math.round(ys*0.72/12);
+  const laurenMo=Math.round(ls/12);
+  const totalIn=take+laurenMo+adu;
+  const spend=17000-lev+1300;
+  const gap=totalIn-spend;
+  document.getElementById('sc-r1').textContent='$'+take.toLocaleString()+'/mo';
+  document.getElementById('sc-r2').textContent='$'+laurenMo.toLocaleString()+'/mo';
+  document.getElementById('sc-r3').textContent='$'+adu.toLocaleString()+'/mo';
+  const r4=document.getElementById('sc-r4');
+  r4.textContent='$'+totalIn.toLocaleString()+'/mo';
+  r4.className=totalIn>spend?'sc-green':'sc-red';
+  document.getElementById('sc-r5').textContent='$'+spend.toLocaleString()+'/mo';
+  const r6=document.getElementById('sc-r6');
+  r6.textContent=(gap>=0?'+$':'−$')+Math.abs(gap).toLocaleString()+'/mo';
+  r6.className=gap>=0?'sc-green':'sc-red';
+  const note=document.getElementById('sc-note');
+  if(gap>=0){note.className='insight green';note.textContent='You\'re in surplus by $'+gap.toLocaleString()+'/mo. The transition is financially viable at these numbers.';}
+  else{note.className='insight amber';note.textContent='$'+Math.abs(gap).toLocaleString()+'/mo gap. Lauren staying corporate until HELOC is paid off eliminates this — this is the post-transition scenario.';}
+}
+
+// Levers
+const levers=[
+  {cat:'Fitness',name:'Cancel Torrent Cycle',detail:'$250/mo — cycling studio',saving:250},
+  {cat:'Fitness',name:'Cancel Wodify (CrossFit)',detail:'$240/mo — gym subscription',saving:240},
+  {cat:'Fitness',name:'Cancel Barry\'s + Glow SLC',detail:'$163/mo — boutique classes',saving:163},
+  {cat:'Fitness',name:'Cancel Salt Lake Power Yoga',detail:'$27/mo — yoga membership',saving:27},
+  {cat:'Groceries',name:'Switch Whole Foods → Smith\'s + TJ\'s',detail:'Save ~25% on $442/mo Whole Foods spend',saving:110},
+  {cat:'Groceries',name:'Shift 50% of Smith\'s to Costco',detail:'Save ~15–20% on bulk staples',saving:100},
+  {cat:'Clothing',name:'Cancel Fabletics',detail:'$44/mo subscription',saving:44},
+  {cat:'Clothing',name:'Anthropologie & Athleta on sale only',detail:'Save ~30% on ~$645/6mo spend',saving:200},
+  {cat:'Food',name:'Cut Uber Eats by 75%',detail:'$1,125 over 6 months · fees add 35%',saving:140},
+  {cat:'Food',name:'Cut coffee shops by half',detail:'$2,531 over 6 months · brew at home',saving:210},
+  {cat:'Subscriptions',name:'Cancel YouTube TV',detail:'$90/mo — keep Hulu ($22)',saving:90},
+  {cat:'Subscriptions',name:'Switch Libro.fm → library (Libby)',detail:'$83/mo — free with SLC library card',saving:83},
+  {cat:'Aesthetic',name:'Reduce Elase treatments by half',detail:'$356/mo → spread sessions out',saving:178},
+];
+let leverState={};
+function renderLevers(){
+  const list=document.getElementById('lever-list');
+  list.innerHTML='';
+  let total=0;
+  levers.forEach((l,i)=>{
+    if(leverState[i]) total+=l.saving;
+    const div=document.createElement('div');
+    div.className='lever';
+    div.innerHTML=`<div class="lever-left"><div><div class="lever-cat">${l.cat}</div><div class="lever-name">${l.name}</div><div class="lever-amount">${l.detail}</div></div></div><div class="lever-right"><div class="lever-saving ${leverState[i]?'on':''}">$${l.saving}/mo</div><label class="toggle"><input type="checkbox" ${leverState[i]?'checked':''} onchange="leverState[${i}]=this.checked;renderLevers()"><div class="toggle-slider"></div></label></div>`;
+    list.appendChild(div);
+  });
+  document.getElementById('lever-total').textContent='$'+total.toLocaleString()+' / mo  ·  $'+total*12+' / yr';
+}
+
+// Vaults
+const vaults=[
+  {emoji:'🏗️',name:'ADU Fund',desc:'Construction deposits, permits, architect, contractor',target:35000,current:30500},
+  {emoji:'🛡️',name:'Emergency Fund',desc:'3–6 months core expenses — job loss, medical, crisis',target:30000,current:0},
+  {emoji:'👪',name:'Parents',desc:'Travel, medical copays, unexpected care costs',target:7500,current:0},
+  {emoji:'🐾',name:'Pets',desc:'Vet emergencies — single surgery can run $3–6k',target:4000,current:0},
+  {emoji:'💰',name:'Cash Buffer',desc:'Home repairs, car, random life — replenishes faster',target:7500,current:0},
+];
+function renderVaults(){
+  const list=document.getElementById('vault-list');
+  list.innerHTML='';
+  vaults.forEach(v=>{
+    const pct=Math.min(100,Math.round(v.current/v.target*100));
+    const div=document.createElement('div');
+    div.className='vault-item';
+    div.innerHTML=`<div class="vault-emoji">${v.emoji}</div><div class="vault-body"><div class="vault-name">${v.name}</div><div class="vault-meta">${v.desc}</div></div><div class="vault-right"><div class="vault-target">$${v.target.toLocaleString()}</div><div class="vault-bar-wrap"><div class="vault-bar-track"><div class="vault-bar-fill" style="width:${pct}%"></div></div><div class="vault-pct">${pct}%</div></div></div>`;
+    list.appendChild(div);
+  });
+}
+
+// Retirement chart
+let retChart=null;
+function drawRetChart(){
+  const rate=parseFloat(document.getElementById('ret-rate').value)/100;
+  const contrib=parseInt(document.getElementById('ret-contrib').value);
+  document.getElementById('ret-rate-out').textContent=(rate*100).toFixed(1)+'%';
+  document.getElementById('ret-contrib-out').textContent='$'+contrib.toLocaleString()+'/yr';
+  const projectYou=(start,yrs)=>{let b=start;const v=[b];for(let i=0;i<yrs;i++){b=b*(1+rate);v.push(Math.round(b));}return v;};
+  const projectLauren=(start,yrs,c)=>{let b=start;const v=[b];for(let i=0;i<yrs;i++){b=b*(1+rate)+c;v.push(Math.round(b));}return v;};
+  const youYrs=26,laurenYrs=30;
+  const maxYrs=Math.max(youYrs,laurenYrs);
+  const youData=projectYou(205000,youYrs);
+  const laurenData=projectLauren(200000,laurenYrs,contrib);
+  const labels=Array.from({length:maxYrs+1},(_,i)=>2026+i);
+  const youPadded=[...youData,...Array(maxYrs-youYrs).fill(null)];
+  const laurenPadded=[...laurenData,...Array(maxYrs-laurenYrs).fill(null)];
+  const finalYou=youData[youYrs];
+  const finalLauren=laurenData[laurenYrs];
+  document.getElementById('ret-you').textContent='~$'+Math.round(finalYou/1000)+'k';
+  document.getElementById('ret-lauren').textContent='~$'+Math.round(finalLauren/1000)+'k';
+  if(retChart) retChart.destroy();
+  const ctx=document.getElementById('ret-chart').getContext('2d');
+  retChart=new Chart(ctx,{
+    type:'line',
+    data:{labels,datasets:[
+      {label:'Anneliese (401k+Roth)',data:youPadded,borderColor:'#2d6a4f',backgroundColor:'rgba(45,106,79,.08)',borderWidth:2,pointRadius:0,fill:true,tension:.3,spanGaps:false},
+      {label:"Lauren's retirement",data:laurenPadded,borderColor:'#1a4a8a',backgroundColor:'rgba(26,74,138,.06)',borderWidth:2,pointRadius:0,fill:true,tension:.3,spanGaps:false,borderDash:[4,3]},
+    ]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>' '+ctx.dataset.label+': $'+Math.round(ctx.parsed.y/1000)+'k'}}},scales:{x:{ticks:{maxTicksLimit:8,font:{size:11},color:'#888'},grid:{color:'rgba(0,0,0,.05)'}},y:{ticks:{callback:v=>'$'+Math.round(v/1000)+'k',font:{size:11},color:'#888'},grid:{color:'rgba(0,0,0,.05)'}}}}
+  });
+}
+document.getElementById('ret-rate').addEventListener('input',drawRetChart);
+document.getElementById('ret-contrib').addEventListener('input',drawRetChart);
+
+// Init
+renderActions();
+recalcSc();
+renderLevers();
+renderVaults();
+</script>
+</body>
+</html>
