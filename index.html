@@ -211,7 +211,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--ink);font
 
   <div class="nw-hero">
     <div class="nw-hero-label">Estimated household net worth</div>
-    <div class="nw-hero-value">~$543,000</div>
+    <div class="nw-hero-value">~$670,000</div>
     <div class="metric-grid mg-3" style="margin-bottom:0">
       <div class="metric" style="background:rgba(255,255,255,.08)">
         <div class="metric-label" style="color:rgba(255,255,255,.5)">Your retirement</div>
@@ -220,7 +220,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--ink);font
       </div>
       <div class="metric" style="background:rgba(255,255,255,.08)">
         <div class="metric-label" style="color:rgba(255,255,255,.5)">Lauren's retirement</div>
-        <div class="metric-value" style="color:#fff">$200k</div>
+        <div class="metric-value" style="color:#fff">$327k</div>
         <div class="metric-sub" style="color:rgba(255,255,255,.4)">Age 35 · 30yr runway</div>
       </div>
       <div class="metric" style="background:rgba(255,255,255,.08)">
@@ -249,7 +249,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--ink);font
     </div>
   </div>
 
-  <div class="insight green"><strong>Retirement is handled.</strong> Combined $405k at ages 39 & 35 grows to ~$2.6M by retirement at 7% — without adding another dollar. The compounding is already working.</div>
+  <div class="insight green"><strong>Retirement is handled.</strong> Combined $532k at ages 39 & 35 grows to ~$3.7M by retirement at 7% — without adding another dollar. The compounding is already working.</div>
   <div class="insight blue"><strong>The ADU is the centerpiece.</strong> Seasonal STR during ski season (Nov–Mar) and summer (May–Sep) generates strong income, while Apr & Oct stay open for family and friends. Builds equity and gives Lauren the runway to leave corporate. Target: break ground mid-2027.</div>
   <div class="insight amber"><strong>Lauren's transition plan.</strong> She stays in corporate until the HELOC is paid off (~18–24 months post-build). This eliminates the biggest financial risk in the plan entirely.</div>
 
@@ -263,12 +263,12 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--ink);font
       </div>
       <div class="metric">
         <div class="metric-label">Lauren at 65 (30 years)</div>
-        <div class="metric-value green">~$1.5M</div>
-        <div class="metric-sub">$200k compounding · 7%</div>
+        <div class="metric-value green">~$2.5M</div>
+        <div class="metric-sub">$327k compounding · 7%</div>
       </div>
       <div class="metric">
         <div class="metric-label">Combined at retirement</div>
-        <div class="metric-value green">~$2.6M</div>
+        <div class="metric-value green">~$3.7M</div>
         <div class="metric-sub">Without new contributions</div>
       </div>
       <div class="metric">
@@ -393,9 +393,9 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--ink);font
   </div>
   <div class="metric-grid mg-2">
     <div class="metric"><div class="metric-label">Anneliese at 65</div><div class="metric-value green" id="ret-you">~$1.1M</div><div class="metric-sub">$205k · 26 years</div></div>
-    <div class="metric"><div class="metric-label">Lauren at 65</div><div class="metric-value green" id="ret-lauren">~$1.5M</div><div class="metric-sub">$200k · 30 years</div></div>
+    <div class="metric"><div class="metric-label">Lauren at 65</div><div class="metric-value green" id="ret-lauren">~$2.5M</div><div class="metric-sub">$327k · 30 years</div></div>
   </div>
-  <div class="insight green">Even with zero new contributions, Lauren's $200k grows to over $1.5M by 65. The compounding at age 35 is extraordinarily powerful.</div>
+  <div class="insight green">Even with zero new contributions, Lauren's $327k grows to over $2.5M by 65. The compounding at age 35 is extraordinarily powerful.</div>
   <div class="insight blue">If Lauren does any freelance floral or consulting work, she can open a Solo 401k and contribute up to $23,500/year — keeping retirement momentum even without corporate employment.</div>
 </div>
 
@@ -546,12 +546,12 @@ const levers=[
   {cat:'Fitness',name:'Cancel Salt Lake Power Yoga',detail:'$27/mo — yoga membership',saving:27},
   {cat:'Groceries',name:'Switch Whole Foods → Smith\'s + TJ\'s',detail:'Save ~25% on $442/mo Whole Foods spend',saving:110},
   {cat:'Groceries',name:'Shift 50% of Smith\'s to Costco',detail:'Save ~15–20% on bulk staples',saving:100},
-  {cat:'Clothing',name:'Cancel Fabletics',detail:'$44/mo subscription',saving:44},
+  {cat:'Clothing — done!',name:'Fabletics cancelled',detail:'Already done — $44/mo saved',saving:44},
   {cat:'Clothing',name:'Anthropologie & Athleta on sale only',detail:'Save ~30% on ~$645/6mo spend',saving:200},
-  {cat:'Food',name:'Cut Uber Eats by 75%',detail:'$1,125 over 6 months · fees add 35%',saving:140},
-  {cat:'Food',name:'Cut coffee shops by half',detail:'$2,531 over 6 months · brew at home',saving:210},
-  {cat:'Subscriptions',name:'Cancel YouTube TV',detail:'$90/mo — keep Hulu ($22)',saving:90},
-  {cat:'Subscriptions',name:'Switch Libro.fm → library (Libby)',detail:'$83/mo — free with SLC library card',saving:83},
+  {cat:'Food',name:'Cut Uber Eats by 75%',detail:'$188/mo in Monarch — verify Wednesday if this is food delivery or Uber rides miscategorized · Uber often bills rides under Uber Eats label',saving:140},
+  {cat:'Food',name:'Cut coffee shops by half',detail:'$2,531 over 6 months · brew at home most days',saving:210},
+  {cat:'Subscriptions',name:'Cancel YouTube TV',detail:'$90/mo — Hulu already cancelled too',saving:90},
+  {cat:'Subscriptions — done!',name:'Libro.fm cancelled',detail:'Already done — no active subscription',saving:83},
   {cat:'Aesthetic',name:'Reduce Elase treatments by half',detail:'$356/mo → spread sessions out',saving:178},
 ];
 let leverState={};
@@ -601,7 +601,7 @@ function drawRetChart(){
   const youYrs=26,laurenYrs=30;
   const maxYrs=Math.max(youYrs,laurenYrs);
   const youData=projectYou(205000,youYrs);
-  const laurenData=projectLauren(200000,laurenYrs,contrib);
+  const laurenData=projectLauren(327000,laurenYrs,contrib);
   const labels=Array.from({length:maxYrs+1},(_,i)=>2026+i);
   const youPadded=[...youData,...Array(maxYrs-youYrs).fill(null)];
   const laurenPadded=[...laurenData,...Array(maxYrs-laurenYrs).fill(null)];
