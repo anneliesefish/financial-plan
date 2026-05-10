@@ -192,6 +192,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--ink);font
   <div class="nav-label">Money</div>
   <button class="nav-item" onclick="show('vaults')"><span class="nav-dot"></span>SoFi vaults</button>
   <button class="nav-item" onclick="show('bkng')"><span class="nav-dot"></span>BKNG strategy</button>
+  <button class="nav-item" onclick="show('earlyret')"><span class="nav-dot"></span>Early retirement</button>
 
   <div class="sidebar-footer">
     Not financial advice.<br>
@@ -380,7 +381,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--ink);font
 <div id="sec-retirement" class="section">
   <div class="page-header">
     <div class="page-title">Retirement <em>projection</em></div>
-    <div class="page-sub">Both of you · to age 65</div>
+    <div class="page-sub">Both of you · to age 65 · but retiring in 11 years</div>
   </div>
   <div class="card">
     <div class="card-label">Assumptions</div>
@@ -451,6 +452,100 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--ink);font
   <div class="insight blue"><strong>10b5-1 plan:</strong> Ask your Morgan Stanley advisor about setting up a pre-scheduled selling plan — lets you sell automatically even during blackout periods. Worth exploring for the 2027+ vestings.</div>
 </div>
 
+
+<!-- EARLY RETIREMENT -->
+<div id="sec-earlyret" class="section">
+  <div class="page-header">
+    <div class="page-title">Retirement <em>scenarios</em></div>
+    <div class="page-sub">Model three paths — retire at 50, 60, or 65</div>
+  </div>
+
+  <div class="card">
+    <div class="card-label">Shared assumptions</div>
+    <div class="range-row"><label>Monthly spend in retirement</label><input type="range" min="4000" max="9000" step="500" value="6000" id="er-spend" oninput="recalcER()"><span id="er-spend-out">$6,000/mo</span></div>
+    <div class="range-row"><label>Annual return</label><input type="range" min="5" max="10" step="0.5" value="7" id="er-rate" oninput="recalcER()"><span id="er-rate-out">7%</span></div>
+    <div class="range-row"><label>ADU income ($/mo)</label><input type="range" min="0" max="2500" step="100" value="1800" id="er-adu" oninput="recalcER()"><span id="er-adu-out">$1,800/mo</span></div>
+    <div class="range-row"><label>Lauren teaching ($/mo)</label><input type="range" min="0" max="3000" step="250" value="1500" id="er-lauren" oninput="recalcER()"><span id="er-lauren-out">$1,500/mo</span></div>
+    <div class="range-row"><label>Anneliese part-time ($/mo)</label><input type="range" min="0" max="3000" step="250" value="0" id="er-annie" oninput="recalcER()"><span id="er-annie-out">$0/mo</span></div>
+  </div>
+
+  <div class="metric-grid mg-3">
+    <div class="metric" id="box-50" style="border:1.5px solid #1D9E75">
+      <div class="metric-label" style="color:#1D9E75;font-weight:600">Retire at 50 (2037)</div>
+      <div class="metric-value green" id="port-50">—</div>
+      <div class="metric-sub" id="gap-50">calculating...</div>
+    </div>
+    <div class="metric">
+      <div class="metric-label">Retire at 60 (2047)</div>
+      <div class="metric-value" id="port-60">—</div>
+      <div class="metric-sub" id="gap-60">calculating...</div>
+    </div>
+    <div class="metric">
+      <div class="metric-label">Retire at 65 (2052)</div>
+      <div class="metric-value" id="port-65">—</div>
+      <div class="metric-sub" id="gap-65">calculating...</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label">What each scenario looks like</div>
+
+    <div style="margin-bottom:1rem;padding-bottom:1rem;border-bottom:0.5px solid var(--border)">
+      <div style="font-size:13px;font-weight:500;margin-bottom:.35rem;color:#1D9E75">Retire at 50 — Anneliese 50, Lauren 46 (2037)</div>
+      <div style="font-size:12px;color:var(--ink3);line-height:1.65">The ambitious goal. Requires ADU renting by 2028 and aggressive contributions now. Lauren keeps teaching pilates lightly (~$1,500/mo) — not because she has to, but because she enjoys it. Anneliese could do massage therapy, co-op work, or nothing at all. <strong style="color:var(--ink)">Bridge challenge:</strong> Lauren needs 13.5 years of bridge income before retirement accounts are penalty-free at 59&frac12;. Roth ladder started in 2028 is critical.</div>
+    </div>
+
+    <div style="margin-bottom:1rem;padding-bottom:1rem;border-bottom:0.5px solid var(--border)">
+      <div style="font-size:13px;font-weight:500;margin-bottom:.35rem">Retire at 60 — Anneliese 60, Lauren 56 (2047)</div>
+      <div style="font-size:12px;color:var(--ink3);line-height:1.65">The comfortable middle path. Retirement accounts are still locked (59&frac12;) but nearly accessible by the time you retire. Massive portfolio surplus — you could spend more, travel more, or leave a meaningful legacy. Anneliese has a full decade to try massage therapy or co-op work first, then ease into full retirement. Much smaller bridge to manage.</div>
+    </div>
+
+    <div>
+      <div style="font-size:13px;font-weight:500;margin-bottom:.35rem">Retire at 65 — Anneliese 65, Lauren 61 (2052)</div>
+      <div style="font-size:12px;color:var(--ink3);line-height:1.65">Traditional retirement. Full Social Security eligibility, Medicare, all retirement accounts fully accessible. Portfolio is enormous — likely $3M+. Maximum financial security but trades 15 years of freedom. Worth modeling as a baseline.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label">Anneliese post-50 options (if retiring at 50)</div>
+    <div style="display:flex;flex-direction:column;gap:.6rem">
+      <div style="background:var(--bg);border-radius:8px;padding:.75rem 1rem">
+        <div style="font-size:13px;font-weight:500;margin-bottom:3px">Massage therapist</div>
+        <div style="font-size:12px;color:var(--ink3);line-height:1.6">Certification: ~6 months, $3,000-6,000. In Utah, licensed massage therapists earn $40-80/hr. 10-15 clients/week = $1,500-3,000/mo. Low stress, meaningful work, flexible schedule. Great income lever if the 50 scenario needs a little more cushion.</div>
+      </div>
+      <div style="background:var(--bg);border-radius:8px;padding:.75rem 1rem">
+        <div style="font-size:13px;font-weight:500;margin-bottom:3px">Co-op cashier / community work</div>
+        <div style="font-size:12px;color:var(--ink3);line-height:1.6">$15-18/hr, 15-20hr/week = $900-1,400/mo. Social, low-pressure, grocery discount. Could work alongside Lauren at the same place. Something to do rather than something you have to do.</div>
+      </div>
+      <div style="background:var(--bg);border-radius:8px;padding:.75rem 1rem">
+        <div style="font-size:13px;font-weight:500;margin-bottom:3px">Nothing at all</div>
+        <div style="font-size:12px;color:var(--ink3);line-height:1.6">With ADU income + Lauren teaching, you may not need to. Road trips, cooking, community, rest. The surplus at 50 is large enough that this is a real option — especially at $5-6k/mo spend.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label">Travel in retirement</div>
+    <div class="metric-grid mg-2" style="margin-bottom:.75rem">
+      <div class="metric"><div class="metric-label">2 flights/year</div><div class="metric-value">~$2,400/yr</div><div class="metric-sub">East Coast + one more trip</div></div>
+      <div class="metric"><div class="metric-label">Driving trips</div><div class="metric-value">~$3,600/yr</div><div class="metric-sub">~$300/mo on the road</div></div>
+      <div class="metric"><div class="metric-label">Total travel</div><div class="metric-value green">$500/mo</div><div class="metric-sub">Fits any scenario</div></div>
+      <div class="metric"><div class="metric-label">Portfolio reduction</div><div class="metric-value green">−$180k</div><div class="metric-sub">vs flying-heavy travel</div></div>
+    </div>
+    <div class="insight green" style="font-size:12px;padding:.6rem .9rem;border-radius:8px;background:#EAF3DE;color:#1a4a2e;line-height:1.6">Zion · Bryce · Arches · Canyonlands · Grand Teton · Yellowstone · Glacier · Oregon coast — years of road trips from SLC without repeating a route.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-label">Action items</div>
+    <div style="font-size:13px;color:var(--ink3);line-height:1.8">
+      <div>☐ Ask CPA about Roth conversion strategy starting 2028</div>
+      <div>☐ Max 401k ($23,500) + Roth IRA ($7,000) + HSA ($4,300) every year while both working</div>
+      <div>☐ Reinvest BKNG vestings (2027–2029) into taxable brokerage as bridge account</div>
+      <div>☐ Research massage therapy certification programs in SLC (~6 months, $3–6k)</div>
+      <div>☐ Revisit all three scenarios Wednesday with updated Monarch data</div>
+    </div>
+  </div>
+</div>
 </main>
 </div>
 
@@ -461,7 +556,7 @@ function show(name){
   document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
   document.querySelectorAll('.nav-item').forEach(b=>b.classList.remove('active'));
   document.getElementById('sec-'+name).classList.add('active');
-  const navMap={overview:0,actions:1,timeline:2,scenario:3,levers:4,retirement:5,vaults:6,bkng:7};
+  const navMap={overview:0,actions:1,timeline:2,scenario:3,levers:4,retirement:5,vaults:6,bkng:7,earlyret:8};
   document.querySelectorAll('.nav-item')[navMap[name]].classList.add('active');
   if(name==='retirement') setTimeout(drawRetChart,100);
 }
@@ -622,6 +717,63 @@ function drawRetChart(){
 }
 document.getElementById('ret-rate').addEventListener('input',drawRetChart);
 document.getElementById('ret-contrib').addEventListener('input',drawRetChart);
+
+// Early retirement calculator - 3 scenarios
+function recalcER(){
+  const spend = parseInt(document.getElementById('er-spend').value);
+  const rate = parseFloat(document.getElementById('er-rate').value)/100;
+  const adu = parseInt(document.getElementById('er-adu').value);
+  const lauren = parseInt(document.getElementById('er-lauren').value);
+  const annie = parseInt(document.getElementById('er-annie').value);
+
+  document.getElementById('er-spend-out').textContent = '$'+spend.toLocaleString()+'/mo';
+  document.getElementById('er-rate-out').textContent = (rate*100).toFixed(1)+'%';
+  document.getElementById('er-adu-out').textContent = '$'+adu.toLocaleString()+'/mo';
+  document.getElementById('er-lauren-out').textContent = '$'+lauren.toLocaleString()+'/mo';
+  document.getElementById('er-annie-out').textContent = '$'+annie.toLocaleString()+'/mo';
+
+  const fmtV = n => {
+    if(n>=1000000) return '$'+(n/1000000).toFixed(2)+'M';
+    if(n>=1000) return '$'+Math.round(n/1000)+'k';
+    return '$'+Math.round(n);
+  };
+
+  const otherIncome = (adu + lauren + annie) * 12;
+  const effectiveSpend = Math.max(0, spend*12 - otherIncome);
+  const need = effectiveSpend * 25;
+
+  // Project portfolio for each scenario
+  function project(years) {
+    let bal = 616000;
+    // Phase 1: 2 years both corporate
+    for(let i=0;i<Math.min(2,years);i++) bal = bal*(1+rate)+40000;
+    // Phase 2: remaining years, reduced contrib
+    for(let i=2;i<years;i++) bal = bal*(1+rate)+20000;
+    return Math.round(bal);
+  }
+
+  const scenarios = [
+    {id:'50', years:11, label:'Retire at 50'},
+    {id:'60', years:21, label:'Retire at 60'},
+    {id:'65', years:26, label:'Retire at 65'},
+  ];
+
+  scenarios.forEach(s => {
+    const port = project(s.years);
+    const surplus = port - need;
+    const portEl = document.getElementById('port-'+s.id);
+    const gapEl = document.getElementById('gap-'+s.id);
+    portEl.textContent = fmtV(port);
+    portEl.className = 'metric-value '+(surplus>500000?'green':surplus>0?'':' red');
+    if(surplus >= 0){
+      gapEl.textContent = '+'+fmtV(surplus)+' surplus';
+      gapEl.style.color = '#1D9E75';
+    } else {
+      gapEl.textContent = fmtV(Math.abs(surplus))+' gap';
+      gapEl.style.color = '#E24B4A';
+    }
+  });
+}
 
 // Init
 renderActions();
